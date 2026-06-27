@@ -7,7 +7,6 @@
   const visitorName = document.getElementById("visitorName");
   const visitorCountry = document.getElementById("visitorCountry");
   const visitorList = document.getElementById("visitorList");
-  const visitorReset = document.getElementById("visitorReset");
   const clock = document.getElementById("clock");
   const themeButton = document.getElementById("themeButton");
   const windows = Array.from(document.querySelectorAll(".app-window"));
@@ -348,15 +347,6 @@
   visitorForm.addEventListener("submit", (event) => {
     event.preventDefault();
     addVisitor(visitorName.value);
-  });
-
-  visitorReset.addEventListener("click", () => {
-    localStorage.removeItem("stardance-visitor-joined");
-    renderVisitors();
-    visitorCountry.textContent = "Detecting country...";
-    visitorName.value = "";
-    visitorPop.classList.add("visible");
-    detectCountry();
   });
 
   themeButton.addEventListener("click", () => {
