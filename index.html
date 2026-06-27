@@ -22,6 +22,21 @@
       </div>
     </section>
 
+    <section class="visitor-pop" id="visitorPop" aria-label="Visitor sign in">
+      <form class="visitor-card" id="visitorForm">
+        <div class="visitor-logo" aria-hidden="true">
+          <img src="https://api.iconify.design/fluent-emoji-flat:waving-hand.svg" alt="">
+        </div>
+        <p class="welcome-mark">Visitor List</p>
+        <h2>Join the guestbook</h2>
+        <p class="welcome-copy">Enter a name or pseudonym to be added to the StarDance OS visitor list.</p>
+        <label for="visitorName">Name or pseudonym</label>
+        <input id="visitorName" name="visitorName" type="text" maxlength="24" autocomplete="nickname" placeholder="PixelPilot" required>
+        <p class="visitor-country" id="visitorCountry">Detecting country...</p>
+        <button class="primary-button" type="submit">Add me</button>
+      </form>
+    </section>
+
     <header class="top-bar">
       <div class="brand">
         <span class="brand-dot" aria-hidden="true"></span>
@@ -49,6 +64,10 @@
       <button class="desktop-icon" type="button" data-open-app="system">
         <span class="icon-shape system-icon" aria-hidden="true"><img src="https://api.iconify.design/fluent-emoji-flat:gear.svg" alt=""></span>
         <span>System Info</span>
+      </button>
+      <button class="desktop-icon" type="button" data-open-app="visitors">
+        <span class="icon-shape visitors-icon" aria-hidden="true"><img src="https://api.iconify.design/fluent-emoji-flat:busts-in-silhouette.svg" alt=""></span>
+        <span>Visitors</span>
       </button>
     </section>
 
@@ -153,9 +172,30 @@ Try dragging this window, opening more apps, and switching the theme.</textarea>
         </header>
         <div class="window-body system-list">
           <p><strong>Status</strong><span>Ready for testing</span></p>
-          <p><strong>Apps</strong><span>4 installed</span></p>
+          <p><strong>Apps</strong><span>5 installed</span></p>
           <p><strong>Windows</strong><span id="windowCount">3 open</span></p>
           <p><strong>Feature</strong><span>Drag + snap hints</span></p>
+        </div>
+      </article>
+
+      <article class="app-window" data-app="visitors" style="--x: 44vw; --y: 43vh; --w: 430px;">
+        <header class="window-titlebar">
+          <div class="window-title">
+            <span class="window-dot visitors-dot" aria-hidden="true"></span>
+            <span>Visitors</span>
+          </div>
+          <button class="close-button" type="button" data-close-app="visitors" aria-label="Close Visitors">×</button>
+        </header>
+        <div class="window-body">
+          <div class="visitor-app-head">
+            <img src="https://api.iconify.design/fluent-emoji-flat:busts-in-silhouette.svg" alt="">
+            <div>
+              <h3>Visitor List</h3>
+              <p>People who opened this desktop on this browser.</p>
+            </div>
+          </div>
+          <div class="visitor-table" id="visitorList" aria-live="polite"></div>
+          <button class="visitor-reset" id="visitorReset" type="button">Clear local list</button>
         </div>
       </article>
     </section>
@@ -165,6 +205,7 @@ Try dragging this window, opening more apps, and switching the theme.</textarea>
       <button type="button" data-open-app="gallery" aria-label="Open Gallery"><span class="dock-icon gallery-icon"><img src="https://api.iconify.design/fluent-emoji-flat:framed-picture.svg" alt=""></span></button>
       <button type="button" data-open-app="calculator" aria-label="Open Calculator"><span class="dock-icon calculator-icon"><img src="https://api.iconify.design/fluent-emoji-flat:abacus.svg" alt=""></span></button>
       <button type="button" data-open-app="system" aria-label="Open System Info"><span class="dock-icon system-icon"><img src="https://api.iconify.design/fluent-emoji-flat:gear.svg" alt=""></span></button>
+      <button type="button" data-open-app="visitors" aria-label="Open Visitors"><span class="dock-icon visitors-icon"><img src="https://api.iconify.design/fluent-emoji-flat:busts-in-silhouette.svg" alt=""></span></button>
     </nav>
   </main>
 

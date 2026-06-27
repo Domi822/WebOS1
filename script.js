@@ -2,6 +2,12 @@
   const desktop = document.getElementById("desktop");
   const welcome = document.getElementById("welcome");
   const startButton = document.getElementById("startButton");
+  const visitorPop = document.getElementById("visitorPop");
+  const visitorForm = document.getElementById("visitorForm");
+  const visitorName = document.getElementById("visitorName");
+  const visitorCountry = document.getElementById("visitorCountry");
+  const visitorList = document.getElementById("visitorList");
+  const visitorReset = document.getElementById("visitorReset");
   const clock = document.getElementById("clock");
   const themeButton = document.getElementById("themeButton");
   const windows = Array.from(document.querySelectorAll(".app-window"));
@@ -25,6 +31,7 @@
   let topZ = 30;
   let calcExpression = "";
   let currentGalleryIndex = 0;
+  let detectedCountry = "Unknown";
 
   function updateCalcDisplay(displayText, historyText) {
     calcDisplay.textContent = displayText || "0";
@@ -42,6 +49,91 @@
   function updateWindowCount() {
     const openCount = windows.filter((win) => win.classList.contains("is-open")).length;
     windowCount.textContent = `${openCount} open`;
+  }
+
+  function getVisitors() {
+    try {
+      return JSON.parse(localStorage.getItem("stardance-visitors") || "[]");
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function saveVisitors(visitors) {
+    localStorage.setItem("stardance-visitors", JSON.stringify(visitors));
+  }
+
+  function formatVisitTime(isoDate) {
+    return new Date(isoDate).toLocaleString([], {
+      dateStyle: "medium",
+      timeStyle: "short"
+    });
+  }
+
+  function renderVisitors() {
+    const visitors = getVisitors();
+    if (!visitors.length) {
+      visitorList.innerHTML = '<p class="gallery-caption">No visitors saved yet.</p>';
+      return;
+    }
+
+    visitorList.innerHTML = visitors
+      .slice()
+      .reverse()
+      .map((visitor) => `
+        <div class="visitor-row">
+          <div>
+            <strong>${escapeHtml(visitor.name)}</strong>
+            <span>${formatVisitTime(visitor.visitedAt)}</span>
+          </div>
+          <div class="visitor-country-badge">${escapeHtml(visitor.country)}</div>
+        </div>
+      `)
+      .join("");
+  }
+
+  function escapeHtml(value) {
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  async function detectCountry() {
+    try {
+      const response = await fetch("https://ipwho.is/");
+      if (!response.ok) throw new Error("Country lookup failed");
+      const data = await response.json();
+      detectedCountry = data.country_name || data.country || "Unknown";
+      visitorCountry.textContent = `Detected country: ${detectedCountry}`;
+    } catch (error) {
+      detectedCountry = "Unknown";
+      visitorCountry.textContent = "Country could not be detected automatically.";
+    }
+  }
+
+  function showVisitorPromptIfNeeded() {
+    if (localStorage.getItem("stardance-visitor-joined") === "yes") return;
+    visitorPop.classList.add("visible");
+    detectCountry();
+    setTimeout(() => visitorName.focus(), 120);
+  }
+
+  function addVisitor(name) {
+    const cleanName = name.trim().slice(0, 24) || "Anonymous";
+    const visitors = getVisitors();
+    visitors.push({
+      name: cleanName,
+      country: detectedCountry,
+      visitedAt: new Date().toISOString()
+    });
+    saveVisitors(visitors);
+    localStorage.setItem("stardance-visitor-joined", "yes");
+    visitorPop.classList.remove("visible");
+    renderVisitors();
+    openApp("visitors");
   }
 
   function focusWindow(win) {
@@ -200,6 +292,22 @@
 
   startButton.addEventListener("click", () => {
     welcome.classList.add("hidden");
+    showVisitorPromptIfNeeded();
+  });
+
+  visitorForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    addVisitor(visitorName.value);
+  });
+
+  visitorReset.addEventListener("click", () => {
+    localStorage.removeItem("stardance-visitors");
+    localStorage.removeItem("stardance-visitor-joined");
+    renderVisitors();
+    visitorCountry.textContent = "Detecting country...";
+    visitorName.value = "";
+    visitorPop.classList.add("visible");
+    detectCountry();
   });
 
   themeButton.addEventListener("click", () => {
@@ -259,6 +367,7 @@
 
   setTheme(localStorage.getItem("stardance-theme") || "light");
   windows.filter((win) => win.classList.contains("is-open")).forEach(focusWindow);
+  renderVisitors();
   updateClock();
   updateWindowCount();
   setInterval(updateClock, 1000);

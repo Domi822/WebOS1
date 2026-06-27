@@ -12,6 +12,8 @@ StarDance OS is a small browser-based desktop project made with plain HTML, CSS,
 - Openable, closable, draggable app windows.
 - Multiple windows can stay open at the same time.
 - Dock and desktop app icons for Notes, Gallery, Calculator, and System Info.
+- First-visit guestbook popup for a name or pseudonym.
+- Visitors app that shows saved visitor names, visit time, and detected country.
 - Gallery app with real HTTPS image links so it works after Vercel deploy.
 - Notes app saves text in `localStorage`.
 - Calculator supports mouse input and keyboard input.
@@ -24,6 +26,7 @@ StarDance OS is a small browser-based desktop project made with plain HTML, CSS,
 - **Gallery:** Browse three local SVG pictures with thumbnails and next/previous controls.
 - **Calculator:** Do basic math with a styled calculator UI.
 - **System Info:** Shows project status and how many windows are open.
+- **Visitors:** Shows the local visitor list with name, time, and automatically detected country.
 
 ## How To Run
 
@@ -34,6 +37,7 @@ Open `index.html` in a web browser. No install step, build step, or server is re
 - `index.html` contains the desktop layout and app windows.
 - `style.css` contains the custom visual style and responsive layout.
 - `script.js` controls the clock, windows, apps, theme, calculator, and gallery.
+- The visitor feature uses `localStorage` for the guestbook and `https://ipwho.is/` to detect country.
 - `assets/` contains local fallback art, while the deployed page uses absolute HTTPS image/icon links.
 
 ## Testing Checklist
@@ -46,3 +50,9 @@ Open `index.html` in a web browser. No install step, build step, or server is re
 - Try the Calculator with buttons and keyboard keys.
 - Type in Notes, refresh, and confirm the text stays.
 - Toggle the theme.
+- On a fresh browser/localStorage, enter a pseudonym in the visitor popup.
+- Open Visitors and confirm the name, time, and country appear.
+
+## Visitor Data Note
+
+This is a static Vercel-friendly project, so the visitor list is saved in the current browser with `localStorage`. It does not collect a global database of all visitors across different devices. Country detection is automatic through a public Geo-IP request and falls back to `Unknown` if blocked.
