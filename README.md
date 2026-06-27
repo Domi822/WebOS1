@@ -2,7 +2,6 @@
 
 StarDance OS is a small browser-based desktop project made with plain HTML, CSS, and JavaScript. It has a no-password welcome screen, a desktop, a top bar with a live clock, app icons, and multiple draggable windows.
 
-![StarDance OS project banner](./assets/project-banner.svg)
 
 ## Features
 
