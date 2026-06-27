@@ -27,6 +27,11 @@
   const galleryCaption = document.getElementById("galleryCaption");
   const galleryPrev = document.getElementById("galleryPrev");
   const galleryNext = document.getElementById("galleryNext");
+  const JSONBIN_BIN_ID = "6a3f9385f5f4af5e2938324c";
+  const JSONBIN_ACCESS_KEY = "$2a$10$.7Ob.JWpbhgXAIgwjEnZDe5OUQ2z/n1p/jPLU0LUIJn9kTiIyhM3u";
+  const JSONBIN_STORE_URL = JSONBIN_BIN_ID ? `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}` : "";
+  const JSONBIN_READ_URL = JSONBIN_STORE_URL ? `${JSONBIN_STORE_URL}?meta=false` : "";
+  const FALLBACK_STORE_URL = "https://jsonblob.com/api/jsonBlob/019f0852-1f21-768a-a5f7-febfd1a61a02";
 
   let topZ = 30;
   let calcExpression = "";
@@ -51,7 +56,7 @@
     windowCount.textContent = `${openCount} open`;
   }
 
-  function getVisitors() {
+  function getLocalVisitors() {
     try {
       return JSON.parse(localStorage.getItem("stardance-visitors") || "[]");
     } catch (error) {
@@ -59,8 +64,56 @@
     }
   }
 
-  function saveVisitors(visitors) {
+  function saveLocalVisitors(visitors) {
     localStorage.setItem("stardance-visitors", JSON.stringify(visitors));
+  }
+
+  async function getVisitors() {
+    try {
+      const response = await fetch(JSONBIN_READ_URL || FALLBACK_STORE_URL, {
+        headers: JSONBIN_STORE_URL
+          ? { Accept: "application/json", "X-Access-Key": JSONBIN_ACCESS_KEY }
+          : { Accept: "application/json" }
+      });
+      if (!response.ok) throw new Error("Visitor store unavailable");
+      const data = await response.json();
+      const visitors = JSONBIN_STORE_URL ? data.visitors : data;
+      return Array.isArray(visitors) ? visitors : [];
+    } catch (error) {
+      return getLocalVisitors();
+    }
+  }
+
+  async function saveVisitor(visitor) {
+    try {
+      const visitors = await getVisitors();
+      const savedVisitor = {
+        ...visitor,
+        visitedAt: new Date().toISOString()
+      };
+      const nextVisitors = [...visitors, savedVisitor].slice(-250);
+      const response = await fetch(JSONBIN_STORE_URL || FALLBACK_STORE_URL, {
+        method: "PUT",
+        headers: JSONBIN_STORE_URL
+          ? {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              "X-Access-Key": JSONBIN_ACCESS_KEY
+            }
+          : {
+              Accept: "application/json",
+              "Content-Type": "application/json"
+            },
+        body: JSON.stringify(JSONBIN_STORE_URL ? { visitors: nextVisitors } : nextVisitors)
+      });
+      if (!response.ok) throw new Error("Visitor store unavailable");
+      return savedVisitor;
+    } catch (error) {
+      const visitors = getLocalVisitors();
+      visitors.push({ ...visitor, visitedAt: new Date().toISOString() });
+      saveLocalVisitors(visitors);
+      return visitor;
+    }
   }
 
   function formatVisitTime(isoDate) {
@@ -70,8 +123,8 @@
     });
   }
 
-  function renderVisitors() {
-    const visitors = getVisitors();
+  async function renderVisitors() {
+    const visitors = await getVisitors();
     if (!visitors.length) {
       visitorList.innerHTML = '<p class="gallery-caption">No visitors saved yet.</p>';
       return;
@@ -121,18 +174,15 @@
     setTimeout(() => visitorName.focus(), 120);
   }
 
-  function addVisitor(name) {
+  async function addVisitor(name) {
     const cleanName = name.trim().slice(0, 24) || "Anonymous";
-    const visitors = getVisitors();
-    visitors.push({
+    await saveVisitor({
       name: cleanName,
-      country: detectedCountry,
-      visitedAt: new Date().toISOString()
+      country: detectedCountry
     });
-    saveVisitors(visitors);
     localStorage.setItem("stardance-visitor-joined", "yes");
     visitorPop.classList.remove("visible");
-    renderVisitors();
+    await renderVisitors();
     openApp("visitors");
   }
 
@@ -301,7 +351,6 @@
   });
 
   visitorReset.addEventListener("click", () => {
-    localStorage.removeItem("stardance-visitors");
     localStorage.removeItem("stardance-visitor-joined");
     renderVisitors();
     visitorCountry.textContent = "Detecting country...";
