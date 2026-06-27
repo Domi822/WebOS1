@@ -1,64 +1,55 @@
 # StarDance OS
 
-StarDance OS is a small browser-based desktop project made with plain HTML, CSS, and JavaScript. It has a no-password welcome screen, a desktop, a top bar with a live clock, app icons, and multiple draggable windows.
+StarDance OS is my small WebOS-style desktop made with plain HTML, CSS, and JavaScript. It does not have a password screen, so anyone can open it and test the apps right away.
 
-![StarDance OS project banner](https://placehold.co/1200x520/101820/f8efdc/svg?text=StarDance%20OS%20-%20WebOS%20Desktop)
+![Desktop overview](./docs/screenshots/desktop-overview.png)
 
-## Features
+## What It Does
 
-- No login or password, so anyone can test it right away.
-- Dismissible welcome screen.
-- Desktop top bar with a live clock.
-- Openable, closable, draggable app windows.
-- Multiple windows can stay open at the same time.
-- Dock and desktop app icons for Notes, Gallery, Calculator, and System Info.
-- First-visit guestbook popup for a name or pseudonym.
-- Visitors app that shows saved visitor names, visit time, and detected country from a permanent shared JSON store.
-- Gallery app with real HTTPS image links so it works after Vercel deploy.
-- Notes app saves text in `localStorage`.
-- Calculator supports mouse input and keyboard input.
-- Theme toggle for light and dark modes.
-- Window snap hints when dragging near the screen edges.
+- Shows a welcome screen before the desktop opens.
+- Has a top bar with a live clock, theme button, and wallpaper button.
+- Opens multiple draggable windows at the same time.
+- Lets windows close, reopen, focus, and snap near the screen edges.
+- Includes Notes, Gallery, Calculator, System Info, Visitors, and Tasks apps.
+- Saves notes, tasks, theme, wallpaper, and first-visit state in the browser.
+- Stores visitor names in JSONBin so the visitor list can be shared.
 
 ## Apps
 
-- **Notes:** Type notes and keep them after refreshing.
-- **Gallery:** Browse three local SVG pictures with thumbnails and next/previous controls.
-- **Calculator:** Do basic math with a styled calculator UI.
-- **System Info:** Shows project status and how many windows are open.
-- **Visitors:** Shows the shared visitor list with name, time, and automatically detected country.
+- **Notes:** a simple textarea that saves after refresh.
+- **Gallery:** three real image links with thumbnails and previous/next buttons.
+- **Calculator:** basic math with button and keyboard input.
+- **System Info:** shows simple desktop status.
+- **Visitors:** asks first-time visitors for a name or pseudonym and shows the shared guestbook.
+- **Tasks:** my extra app for adding, checking off, and deleting small tasks.
 
-## How To Run
+![Visitors app](./docs/screenshots/visitors-app.png)
 
-Open `index.html` in a web browser. No install step, build step, or server is required.
+## How I Made It
 
-## Project Files
+I started with the required OS desktop parts first: welcome screen, desktop icons, top bar, clock, and draggable windows. After that I added one app at a time. The calculator was the hardest because I had to keep track of the expression, display, delete button, and keyboard input.
 
-- `index.html` contains the desktop layout and app windows.
-- `style.css` contains the custom visual style and responsive layout.
-- `script.js` controls the clock, windows, apps, theme, calculator, and gallery.
-- The visitor feature is wired for JSONBin storage and uses `https://ipwho.is/` to detect country.
-- `assets/` contains local fallback art, while the deployed page uses absolute HTTPS image/icon links.
+Later I changed the design because the first version felt too much like a generic shiny template. The newer style is more minimal: flatter colors, smaller shadows, simple borders, and a calmer desktop background. I also added wallpaper switching and the Tasks app so there is more to interact with than just opening windows.
 
-## Testing Checklist
+The visitor list uses JSONBin. When somebody joins the guestbook, the page saves their name, country, and visit time to the shared JSON record.
 
-- Click **Start** and confirm there is no password screen.
-- Open each app from the desktop icons and dock.
-- Drag windows and confirm they come to the front.
-- Close and reopen windows.
-- Use the Gallery thumbnails and Previous/Next buttons.
-- Try the Calculator with buttons and keyboard keys.
-- Type in Notes, refresh, and confirm the text stays.
-- Toggle the theme.
-- On a fresh browser/localStorage, enter a pseudonym in the visitor popup.
-- Open Visitors and confirm the name, time, and country appear for everyone using the shared API.
+## Screenshots
 
-## Project Links
+![Tasks and gallery](./docs/screenshots/tasks-gallery.png)
 
-- Main README: [README.md](./README.md)
+The screenshot files in `docs/screenshots/` are browser captures of the project: the desktop, the visitor list, the gallery, and the new tasks app.
 
-## Visitor Data Note
+## Run It
 
-The visitor list is stored in JSONBin at `https://api.jsonbin.io/v3/b/6a3f9385f5f4af5e2938324c`. The app uses the JSONBin access key header and keeps a JSONBlob fallback so testing still works if JSONBin is temporarily unavailable.
+Open `index.html` in a browser, or deploy the folder to Vercel.
 
-If JSONBin is unavailable, the browser falls back to local storage so the app still works for testing.
+## Files
+
+- `index.html` has the desktop structure and app windows.
+- `style.css` controls the minimal desktop look and responsive layout.
+- `script.js` controls the clock, dragging, apps, storage, calculator, gallery, tasks, wallpaper, and visitors.
+- `vercel.json` redirects `/readme.md` to `/README.md` and serves the README as raw text.
+
+## Devlog
+
+I wrote the development notes in [DEVLOG.md](./DEVLOG.md).

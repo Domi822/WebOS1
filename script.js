@@ -9,6 +9,7 @@
   const visitorList = document.getElementById("visitorList");
   const clock = document.getElementById("clock");
   const themeButton = document.getElementById("themeButton");
+  const wallpaperButton = document.getElementById("wallpaperButton");
   const windows = Array.from(document.querySelectorAll(".app-window"));
   const openButtons = Array.from(document.querySelectorAll("[data-open-app]"));
   const closeButtons = Array.from(document.querySelectorAll("[data-close-app]"));
@@ -26,16 +27,21 @@
   const galleryCaption = document.getElementById("galleryCaption");
   const galleryPrev = document.getElementById("galleryPrev");
   const galleryNext = document.getElementById("galleryNext");
+  const taskForm = document.getElementById("taskForm");
+  const taskInput = document.getElementById("taskInput");
+  const taskList = document.getElementById("taskList");
   const JSONBIN_BIN_ID = "6a3f9385f5f4af5e2938324c";
   const JSONBIN_ACCESS_KEY = "$2a$10$.7Ob.JWpbhgXAIgwjEnZDe5OUQ2z/n1p/jPLU0LUIJn9kTiIyhM3u";
   const JSONBIN_STORE_URL = JSONBIN_BIN_ID ? `https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}` : "";
   const JSONBIN_READ_URL = JSONBIN_STORE_URL ? `${JSONBIN_STORE_URL}?meta=false` : "";
   const FALLBACK_STORE_URL = "https://jsonblob.com/api/jsonBlob/019f0852-1f21-768a-a5f7-febfd1a61a02";
+  const demoMode = new URLSearchParams(window.location.search).get("demo");
 
   let topZ = 30;
   let calcExpression = "";
   let currentGalleryIndex = 0;
   let detectedCountry = "Unknown";
+  const wallpapers = ["paper", "mint", "night"];
 
   function updateCalcDisplay(displayText, historyText) {
     calcDisplay.textContent = displayText || "0";
@@ -55,6 +61,56 @@
     windowCount.textContent = `${openCount} open`;
   }
 
+  function getTasks() {
+    try {
+      return JSON.parse(localStorage.getItem("stardance-tasks") || "[]");
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function saveTasks(tasks) {
+    localStorage.setItem("stardance-tasks", JSON.stringify(tasks));
+  }
+
+  function renderTasks() {
+    const tasks = getTasks();
+    if (!tasks.length) {
+      taskList.innerHTML = '<p class="empty-note">No tasks yet. Add one tiny thing.</p>';
+      return;
+    }
+
+    taskList.innerHTML = tasks.map((task) => `
+      <label class="task-row">
+        <input type="checkbox" data-task-toggle="${task.id}" ${task.done ? "checked" : ""}>
+        <span>${escapeHtml(task.title)}</span>
+        <button type="button" data-task-delete="${task.id}" aria-label="Delete task">x</button>
+      </label>
+    `).join("");
+  }
+
+  function addTask(title) {
+    const tasks = getTasks();
+    tasks.push({
+      id: String(Date.now()),
+      title: title.trim().slice(0, 40),
+      done: false
+    });
+    saveTasks(tasks);
+    renderTasks();
+  }
+
+  function updateWallpaper(nextMode) {
+    document.body.dataset.wallpaper = nextMode;
+    localStorage.setItem("stardance-wallpaper", nextMode);
+  }
+
+  function cycleWallpaper() {
+    const current = localStorage.getItem("stardance-wallpaper") || wallpapers[0];
+    const nextIndex = (wallpapers.indexOf(current) + 1) % wallpapers.length;
+    updateWallpaper(wallpapers[nextIndex]);
+  }
+
   function getLocalVisitors() {
     try {
       return JSON.parse(localStorage.getItem("stardance-visitors") || "[]");
@@ -68,6 +124,13 @@
   }
 
   async function getVisitors() {
+    if (demoMode === "visitors") {
+      return [
+        { name: "domi07913", country: "Austria", visitedAt: "2026-06-27T09:10:00.000Z" },
+        { name: "PixelPilot", country: "Germany", visitedAt: "2026-06-27T09:22:00.000Z" }
+      ];
+    }
+
     try {
       const response = await fetch(JSONBIN_READ_URL || FALLBACK_STORE_URL, {
         headers: JSONBIN_STORE_URL
@@ -354,6 +417,8 @@
     setTheme(nextTheme);
   });
 
+  wallpaperButton.addEventListener("click", cycleWallpaper);
+
   openButtons.forEach((button) => {
     button.addEventListener("click", () => openApp(button.dataset.openApp));
   });
@@ -386,6 +451,32 @@
     button.addEventListener("click", () => handleCalc(button.dataset.calc));
   });
 
+  taskForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!taskInput.value.trim()) return;
+    addTask(taskInput.value);
+    taskInput.value = "";
+  });
+
+  taskList.addEventListener("click", (event) => {
+    const toggle = event.target.closest("[data-task-toggle]");
+    const deleteButton = event.target.closest("[data-task-delete]");
+    const tasks = getTasks();
+
+    if (toggle) {
+      const nextTasks = tasks.map((task) => (
+        task.id === toggle.dataset.taskToggle ? { ...task, done: toggle.checked } : task
+      ));
+      saveTasks(nextTasks);
+      renderTasks();
+    }
+
+    if (deleteButton) {
+      saveTasks(tasks.filter((task) => task.id !== deleteButton.dataset.taskDelete));
+      renderTasks();
+    }
+  });
+
   window.addEventListener("keydown", (event) => {
     if (!document.querySelector('[data-app="calculator"]').classList.contains("is-open")) return;
     if (event.target.matches("textarea, input")) return;
@@ -404,9 +495,26 @@
     }
   });
 
+  if (demoMode === "tasks" && !getTasks().length) {
+    saveTasks([
+      { id: "demo-1", title: "Fix gallery images", done: true },
+      { id: "demo-2", title: "Write README", done: false },
+      { id: "demo-3", title: "Test draggable windows", done: false }
+    ]);
+  }
+
   setTheme(localStorage.getItem("stardance-theme") || "light");
+  updateWallpaper(localStorage.getItem("stardance-wallpaper") || "paper");
   windows.filter((win) => win.classList.contains("is-open")).forEach(focusWindow);
   renderVisitors();
+  renderTasks();
+  if (demoMode) {
+    welcome.classList.add("hidden");
+    visitorPop.classList.remove("visible");
+    localStorage.setItem("stardance-visitor-joined", "yes");
+    if (demoMode === "visitors") openApp("visitors");
+    if (demoMode === "tasks") openApp("tasks");
+  }
   updateClock();
   updateWindowCount();
   setInterval(updateClock, 1000);

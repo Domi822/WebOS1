@@ -7,7 +7,7 @@
   <meta name="description" content="A no-password browser desktop with draggable windows and small built-in apps.">
   <meta property="og:title" content="StarDance OS">
   <meta property="og:description" content="A playful WebOS project with draggable windows, app icons, a live clock, and built-in apps.">
-  <meta property="og:image" content="https://placehold.co/1200x520/101820/f8efdc/svg?text=StarDance%20OS%20-%20WebOS%20Desktop">
+  <meta property="og:image" content="./docs/screenshots/desktop-overview.png">
   <link rel="icon" href="https://api.iconify.design/fluent-emoji-flat:sparkles.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./style.css">
 </head>
@@ -43,6 +43,7 @@
         <span>StarDance OS</span>
       </div>
       <div class="top-actions">
+        <button class="theme-button" id="wallpaperButton" type="button" aria-label="Change wallpaper">Wallpaper</button>
         <button class="theme-button" id="themeButton" type="button" aria-label="Toggle theme">Theme</button>
         <time class="clock" id="clock">11:42 AM</time>
       </div>
@@ -68,6 +69,10 @@
       <button class="desktop-icon" type="button" data-open-app="visitors">
         <span class="icon-shape visitors-icon" aria-hidden="true"><img src="https://api.iconify.design/fluent-emoji-flat:busts-in-silhouette.svg" alt=""></span>
         <span>Visitors</span>
+      </button>
+      <button class="desktop-icon" type="button" data-open-app="tasks">
+        <span class="icon-shape tasks-icon" aria-hidden="true"><img src="https://api.iconify.design/fluent-emoji-flat:check-mark-button.svg" alt=""></span>
+        <span>Tasks</span>
       </button>
     </section>
 
@@ -172,7 +177,7 @@ Try dragging this window, opening more apps, and switching the theme.</textarea>
         </header>
         <div class="window-body system-list">
           <p><strong>Status</strong><span>Ready for testing</span></p>
-          <p><strong>Apps</strong><span>5 installed</span></p>
+          <p><strong>Apps</strong><span>6 installed</span></p>
           <p><strong>Windows</strong><span id="windowCount">3 open</span></p>
           <p><strong>Feature</strong><span>Drag + snap hints</span></p>
         </div>
@@ -197,6 +202,23 @@ Try dragging this window, opening more apps, and switching the theme.</textarea>
           <div class="visitor-table" id="visitorList" aria-live="polite"></div>
         </div>
       </article>
+
+      <article class="app-window" data-app="tasks" style="--x: 58vw; --y: 48vh; --w: 390px;">
+        <header class="window-titlebar">
+          <div class="window-title">
+            <span class="window-dot tasks-dot" aria-hidden="true"></span>
+            <span>Tasks</span>
+          </div>
+          <button class="close-button" type="button" data-close-app="tasks" aria-label="Close Tasks">×</button>
+        </header>
+        <div class="window-body tasks-body">
+          <form class="task-form" id="taskForm">
+            <input id="taskInput" type="text" maxlength="40" placeholder="Add a small task" aria-label="Task title">
+            <button type="submit">Add</button>
+          </form>
+          <div class="task-list" id="taskList" aria-live="polite"></div>
+        </div>
+      </article>
     </section>
 
     <nav class="dock" aria-label="App dock">
@@ -205,6 +227,7 @@ Try dragging this window, opening more apps, and switching the theme.</textarea>
       <button type="button" data-open-app="calculator" aria-label="Open Calculator"><span class="dock-icon calculator-icon"><img src="https://api.iconify.design/fluent-emoji-flat:abacus.svg" alt=""></span></button>
       <button type="button" data-open-app="system" aria-label="Open System Info"><span class="dock-icon system-icon"><img src="https://api.iconify.design/fluent-emoji-flat:gear.svg" alt=""></span></button>
       <button type="button" data-open-app="visitors" aria-label="Open Visitors"><span class="dock-icon visitors-icon"><img src="https://api.iconify.design/fluent-emoji-flat:busts-in-silhouette.svg" alt=""></span></button>
+      <button type="button" data-open-app="tasks" aria-label="Open Tasks"><span class="dock-icon tasks-icon"><img src="https://api.iconify.design/fluent-emoji-flat:check-mark-button.svg" alt=""></span></button>
     </nav>
   </main>
 
