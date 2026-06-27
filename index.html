@@ -4,7 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>StarDance OS</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="description" content="A no-password browser desktop with draggable windows and small built-in apps.">
+  <meta property="og:title" content="StarDance OS">
+  <meta property="og:description" content="A playful WebOS project with draggable windows, app icons, a live clock, and built-in apps.">
+  <meta property="og:image" content="./assets/project-banner.svg">
+  <link rel="icon" href="./assets/app-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <main class="desktop" id="desktop">
@@ -30,19 +35,19 @@
 
     <section class="desktop-icons" aria-label="Desktop apps">
       <button class="desktop-icon" type="button" data-open-app="notes">
-        <span class="icon-shape notes-icon" aria-hidden="true"><img src="assets/icon-notes.svg" alt=""></span>
+        <span class="icon-shape notes-icon" aria-hidden="true"><img src="./assets/icon-notes.svg" alt=""></span>
         <span>Notes</span>
       </button>
       <button class="desktop-icon" type="button" data-open-app="gallery">
-        <span class="icon-shape gallery-icon" aria-hidden="true"><img src="assets/icon-gallery.svg" alt=""></span>
+        <span class="icon-shape gallery-icon" aria-hidden="true"><img src="./assets/icon-gallery.svg" alt=""></span>
         <span>Gallery</span>
       </button>
       <button class="desktop-icon" type="button" data-open-app="calculator">
-        <span class="icon-shape calculator-icon" aria-hidden="true"><img src="assets/icon-calculator.svg" alt=""></span>
+        <span class="icon-shape calculator-icon" aria-hidden="true"><img src="./assets/icon-calculator.svg" alt=""></span>
         <span>Calculator</span>
       </button>
       <button class="desktop-icon" type="button" data-open-app="system">
-        <span class="icon-shape system-icon" aria-hidden="true"><img src="assets/icon-system.svg" alt=""></span>
+        <span class="icon-shape system-icon" aria-hidden="true"><img src="./assets/icon-system.svg" alt=""></span>
         <span>System Info</span>
       </button>
     </section>
@@ -77,20 +82,20 @@ Try dragging this window, opening more apps, and switching the theme.</textarea>
         </header>
         <div class="window-body">
           <div class="gallery-preview" id="galleryPreview" aria-live="polite">
-            <img id="galleryImage" src="assets/sunrise-beach.svg" alt="Sunrise Beach">
+            <img id="galleryImage" src="./assets/sunrise-beach.svg" alt="Sunrise Beach">
             <span id="galleryPreviewLabel">Sunrise Beach</span>
           </div>
           <div class="gallery-grid" id="galleryGrid">
-            <button class="gallery-tile active" type="button" data-gallery="0" data-caption="Sunrise Beach" data-src="assets/sunrise-beach.svg">
-              <img src="assets/sunrise-beach.svg" alt="">
+            <button class="gallery-tile active" type="button" data-gallery="0" data-caption="Sunrise Beach" data-src="./assets/sunrise-beach.svg">
+              <img src="./assets/sunrise-beach.svg" alt="">
               <span>Sunrise</span>
             </button>
-            <button class="gallery-tile" type="button" data-gallery="1" data-caption="Mint Mountain" data-src="assets/mint-mountain.svg">
-              <img src="assets/mint-mountain.svg" alt="">
+            <button class="gallery-tile" type="button" data-gallery="1" data-caption="Mint Mountain" data-src="./assets/mint-mountain.svg">
+              <img src="./assets/mint-mountain.svg" alt="">
               <span>Mountain</span>
             </button>
-            <button class="gallery-tile" type="button" data-gallery="2" data-caption="Coral City" data-src="assets/coral-city.svg">
-              <img src="assets/coral-city.svg" alt="">
+            <button class="gallery-tile" type="button" data-gallery="2" data-caption="Coral City" data-src="./assets/coral-city.svg">
+              <img src="./assets/coral-city.svg" alt="">
               <span>City</span>
             </button>
           </div>
@@ -156,13 +161,13 @@ Try dragging this window, opening more apps, and switching the theme.</textarea>
     </section>
 
     <nav class="dock" aria-label="App dock">
-      <button type="button" data-open-app="notes" aria-label="Open Notes"><span class="dock-icon notes-icon"><img src="assets/icon-notes.svg" alt=""></span></button>
-      <button type="button" data-open-app="gallery" aria-label="Open Gallery"><span class="dock-icon gallery-icon"><img src="assets/icon-gallery.svg" alt=""></span></button>
-      <button type="button" data-open-app="calculator" aria-label="Open Calculator"><span class="dock-icon calculator-icon"><img src="assets/icon-calculator.svg" alt=""></span></button>
-      <button type="button" data-open-app="system" aria-label="Open System Info"><span class="dock-icon system-icon"><img src="assets/icon-system.svg" alt=""></span></button>
+      <button type="button" data-open-app="notes" aria-label="Open Notes"><span class="dock-icon notes-icon"><img src="./assets/icon-notes.svg" alt=""></span></button>
+      <button type="button" data-open-app="gallery" aria-label="Open Gallery"><span class="dock-icon gallery-icon"><img src="./assets/icon-gallery.svg" alt=""></span></button>
+      <button type="button" data-open-app="calculator" aria-label="Open Calculator"><span class="dock-icon calculator-icon"><img src="./assets/icon-calculator.svg" alt=""></span></button>
+      <button type="button" data-open-app="system" aria-label="Open System Info"><span class="dock-icon system-icon"><img src="./assets/icon-system.svg" alt=""></span></button>
     </nav>
   </main>
 
-  <script src="script.js"></script>
+  <script src="./script.js"></script>
 </body>
 </html>

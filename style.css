@@ -1,32 +1,37 @@
 :root {
   color-scheme: light;
-  --bg-top: #9bd7ff;
-  --bg-mid: #77d5c8;
-  --bg-low: #f9c270;
-  --surface: rgba(255, 255, 255, 0.82);
-  --surface-strong: rgba(255, 255, 255, 0.95);
-  --text: #1d2733;
-  --muted: #607180;
-  --border: rgba(29, 39, 51, 0.14);
-  --shadow: 0 22px 60px rgba(20, 49, 74, 0.22);
-  --accent: #ff745f;
-  --accent-2: #21b9a8;
-  --yellow: #ffd36b;
-  --radius: 18px;
+  --paper: #f8efdc;
+  --ink: #101820;
+  --muted: #53615f;
+  --sea: #16a085;
+  --sea-dark: #0f735f;
+  --blue: #2d7dd2;
+  --coral: #ff6f59;
+  --sun: #ffd166;
+  --surface: #f8efdc;
+  --surface-strong: #fff8e8;
+  --text: var(--ink);
+  --border: var(--ink);
+  --shadow: 8px 8px 0 rgba(16, 24, 32, 0.24);
+  --radius: 14px;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 body.dark {
   color-scheme: dark;
-  --bg-top: #152a4a;
-  --bg-mid: #23445c;
-  --bg-low: #6e4d62;
-  --surface: rgba(20, 30, 43, 0.82);
-  --surface-strong: rgba(28, 39, 54, 0.96);
-  --text: #f2f7fb;
-  --muted: #b4c4d2;
-  --border: rgba(255, 255, 255, 0.16);
-  --shadow: 0 22px 70px rgba(0, 0, 0, 0.42);
+  --paper: #17212b;
+  --ink: #f8efdc;
+  --muted: #c5c0ad;
+  --sea: #2abca9;
+  --sea-dark: #176b65;
+  --blue: #69a8ff;
+  --coral: #ff856f;
+  --sun: #ffe28a;
+  --surface: #22303d;
+  --surface-strong: #2d3a47;
+  --text: var(--ink);
+  --border: #f8efdc;
+  --shadow: 8px 8px 0 rgba(0, 0, 0, 0.34);
 }
 
 * {
@@ -57,20 +62,31 @@ button {
   min-height: 620px;
   color: var(--text);
   background:
-    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.72), transparent 20%),
-    radial-gradient(circle at 80% 16%, rgba(255, 211, 107, 0.52), transparent 17%),
-    linear-gradient(160deg, var(--bg-top) 0%, var(--bg-mid) 58%, var(--bg-low) 100%);
+    linear-gradient(90deg, rgba(16, 24, 32, 0.08) 1px, transparent 1px),
+    linear-gradient(rgba(16, 24, 32, 0.08) 1px, transparent 1px),
+    linear-gradient(180deg, #9ed8eb 0%, #d4f0dc 49%, #f4c169 50%, #e68a54 100%);
+  background-size: 34px 34px, 34px 34px, auto;
   overflow: hidden;
+}
+
+body.dark .desktop {
+  background:
+    linear-gradient(90deg, rgba(248, 239, 220, 0.08) 1px, transparent 1px),
+    linear-gradient(rgba(248, 239, 220, 0.08) 1px, transparent 1px),
+    linear-gradient(180deg, #17212b 0%, #213f50 49%, #174f49 50%, #5c3b42 100%);
+  background-size: 34px 34px, 34px 34px, auto;
 }
 
 .desktop::before {
   content: "";
   position: absolute;
-  inset: auto -8% -12% -8%;
-  height: 34vh;
+  inset: auto -7% -9% -7%;
+  height: 30vh;
   background:
-    radial-gradient(ellipse at 24% 20%, rgba(255, 255, 255, 0.62), transparent 38%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.46), rgba(255, 255, 255, 0.1));
+    repeating-linear-gradient(155deg, transparent 0 28px, rgba(16, 24, 32, 0.08) 28px 31px),
+    var(--sea);
+  border: 4px solid var(--border);
+  border-bottom: 0;
   border-radius: 50% 50% 0 0;
 }
 
@@ -85,11 +101,10 @@ button {
   align-items: center;
   justify-content: space-between;
   padding: 0 14px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
+  border: 3px solid var(--border);
+  border-radius: 12px;
   background: var(--surface);
-  box-shadow: 0 12px 30px rgba(28, 54, 75, 0.12);
-  backdrop-filter: blur(18px);
+  box-shadow: 5px 5px 0 rgba(16, 24, 32, 0.22);
 }
 
 .brand,
@@ -109,8 +124,9 @@ button {
   width: 18px;
   height: 18px;
   border-radius: 6px;
-  background: linear-gradient(135deg, var(--accent), var(--yellow));
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.42);
+  background: var(--coral);
+  border: 3px solid var(--border);
+  box-shadow: 6px -3px 0 var(--sun);
 }
 
 .theme-button,
@@ -118,7 +134,7 @@ button {
   border: 0;
   border-radius: 999px;
   color: white;
-  background: var(--text);
+  background: var(--ink);
   font-size: 13px;
   font-weight: 800;
 }
@@ -143,7 +159,6 @@ button {
   place-items: center;
   padding: 24px;
   background: rgba(14, 28, 42, 0.34);
-  backdrop-filter: blur(12px);
   transition: opacity 180ms ease, visibility 180ms ease;
 }
 
@@ -156,17 +171,17 @@ button {
 .welcome-card {
   width: min(520px, 92vw);
   padding: 36px;
-  border: 1px solid rgba(255, 255, 255, 0.58);
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.9);
-  color: #1d2733;
+  border: 4px solid #101820;
+  border-radius: 18px;
+  background: #f8efdc;
+  color: #101820;
   box-shadow: var(--shadow);
   text-align: center;
 }
 
 .welcome-mark {
   margin: 0 0 10px;
-  color: var(--accent);
+  color: var(--coral);
   font-size: 14px;
   font-weight: 900;
   text-transform: uppercase;
@@ -189,7 +204,8 @@ button {
   min-width: 132px;
   height: 46px;
   background: linear-gradient(135deg, #ff745f, #f2a43d);
-  box-shadow: 0 14px 26px rgba(255, 116, 95, 0.34);
+  border: 3px solid #101820;
+  box-shadow: 5px 5px 0 rgba(16, 24, 32, 0.3);
 }
 
 .desktop-icons {
@@ -208,7 +224,7 @@ button {
   color: var(--text);
   font-size: 12px;
   font-weight: 800;
-  text-shadow: 0 1px 12px rgba(255, 255, 255, 0.6);
+  text-shadow: 2px 2px 0 rgba(248, 239, 220, 0.55);
 }
 
 .icon-shape,
@@ -217,14 +233,15 @@ button {
   place-items: center;
   color: white;
   font-weight: 900;
-  box-shadow: 0 12px 22px rgba(26, 57, 80, 0.2);
+  box-shadow: 5px 5px 0 rgba(16, 24, 32, 0.22);
 }
 
 .icon-shape {
   width: 58px;
   height: 58px;
   margin: 0 auto 7px;
-  border-radius: 16px;
+  border: 3px solid var(--border);
+  border-radius: 15px;
 }
 
 .icon-shape img,
@@ -249,13 +266,12 @@ button {
   display: none;
   width: min(var(--w), calc(100vw - 24px));
   min-height: 230px;
-  border: 1px solid var(--border);
+  border: 4px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface-strong);
   box-shadow: var(--shadow);
   overflow: hidden;
   pointer-events: auto;
-  backdrop-filter: blur(18px);
 }
 
 .app-window.is-open {
@@ -273,9 +289,21 @@ button {
   align-items: center;
   justify-content: space-between;
   padding: 0 12px 0 15px;
-  border-bottom: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.22);
+  border-bottom: 4px solid var(--border);
+  background: var(--sun);
   touch-action: none;
+}
+
+.app-window[data-app="notes"] .window-titlebar {
+  background: var(--coral);
+}
+
+.app-window[data-app="gallery"] .window-titlebar {
+  background: var(--sea);
+}
+
+.app-window[data-app="calculator"] .window-titlebar {
+  background: var(--blue);
 }
 
 .window-title {
@@ -299,10 +327,11 @@ button {
   height: 28px;
   border: 0;
   border-radius: 50%;
-  background: rgba(255, 116, 95, 0.18);
-  color: #d74834;
+  background: var(--paper);
+  color: var(--ink);
   font-size: 21px;
   line-height: 1;
+  box-shadow: inset 0 0 0 2px var(--border);
 }
 
 .window-body {
@@ -325,14 +354,10 @@ textarea {
   padding: 14px;
   border: 1px solid var(--border);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--paper);
   color: var(--text);
   line-height: 1.45;
   outline: none;
-}
-
-body.dark textarea {
-  background: rgba(255, 255, 255, 0.07);
 }
 
 .gallery-preview {
@@ -344,7 +369,8 @@ body.dark textarea {
   border-radius: 16px;
   color: white;
   background: #d9f2ff;
-  box-shadow: inset 0 -42px 60px rgba(0, 0, 0, 0.2);
+  border: 3px solid var(--border);
+  box-shadow: 5px 5px 0 rgba(16, 24, 32, 0.16);
   transition: background 160ms ease, transform 160ms ease;
 }
 
@@ -405,6 +431,7 @@ body.dark textarea {
 
 .gallery-tile.active {
   border-color: var(--text);
+  box-shadow: 4px 4px 0 rgba(16, 24, 32, 0.22);
 }
 
 .gallery-controls {
@@ -434,8 +461,10 @@ body.dark textarea {
 
 .calculator-body {
   background:
-    radial-gradient(circle at 0 0, rgba(68, 102, 242, 0.16), transparent 35%),
-    radial-gradient(circle at 100% 0, rgba(255, 116, 95, 0.15), transparent 32%);
+    linear-gradient(90deg, rgba(16, 24, 32, 0.05) 1px, transparent 1px),
+    linear-gradient(rgba(16, 24, 32, 0.05) 1px, transparent 1px),
+    var(--surface-strong);
+  background-size: 18px 18px;
 }
 
 .calc-screen {
@@ -445,9 +474,9 @@ body.dark textarea {
   padding: 12px 14px;
   border: 1px solid rgba(68, 102, 242, 0.16);
   border-radius: 18px;
-  background: linear-gradient(145deg, rgba(29, 39, 51, 0.94), rgba(46, 61, 82, 0.94));
+  background: var(--ink);
   color: white;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  box-shadow: 4px 4px 0 rgba(16, 24, 32, 0.18);
 }
 
 .calc-history {
@@ -484,20 +513,17 @@ body.dark textarea {
   height: 46px;
   border: 0;
   border-radius: 15px;
-  background: rgba(255, 255, 255, 0.78);
+  border: 2px solid var(--border);
+  background: var(--paper);
   color: var(--text);
-  box-shadow: 0 8px 18px rgba(28, 54, 75, 0.1);
+  box-shadow: 3px 3px 0 rgba(16, 24, 32, 0.18);
   font-weight: 900;
   transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
 }
 
-body.dark .calc-grid button {
-  background: rgba(255, 255, 255, 0.12);
-}
-
 .calc-grid button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 22px rgba(28, 54, 75, 0.16);
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 rgba(16, 24, 32, 0.18);
 }
 
 .calc-grid button:active {
@@ -505,18 +531,18 @@ body.dark .calc-grid button {
 }
 
 .calc-grid .calc-action {
-  background: rgba(255, 211, 107, 0.72);
+  background: var(--sun);
 }
 
 .calc-grid .calc-operator {
-  background: rgba(68, 102, 242, 0.9);
+  background: var(--blue);
   color: white;
 }
 
 .calc-grid .equals {
   grid-row: span 2;
   height: auto;
-  background: var(--accent);
+  background: var(--coral);
   color: white;
 }
 
@@ -555,16 +581,15 @@ body.dark .calc-grid button {
   border: 1px solid var(--border);
   border-radius: 22px;
   background: var(--surface);
-  box-shadow: 0 16px 36px rgba(28, 54, 75, 0.18);
+  box-shadow: 6px 6px 0 rgba(16, 24, 32, 0.22);
   transform: translateX(-50%);
-  backdrop-filter: blur(18px);
 }
 
 .dock button {
   width: 54px;
   height: 54px;
   border: 0;
-  border-radius: 16px;
+  border-radius: 15px;
   background: transparent;
 }
 
@@ -586,7 +611,7 @@ body.dark .calc-grid button {
   border: 2px dashed rgba(255, 255, 255, 0.78);
   border-radius: 20px;
   color: white;
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(16, 24, 32, 0.26);
   font-size: 18px;
   font-weight: 900;
   opacity: 0;

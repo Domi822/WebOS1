@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">StarDance OS app icon</title>
+  <rect width="128" height="128" rx="26" fill="#101820"/>
+  <path d="M16 86c21-9 34-10 52-2 15 7 28 7 44-2v22H16z" fill="#16a085"/>
+  <path d="M20 28h88v56H20z" fill="#f8efdc"/>
+  <path d="M26 36h76v9H26z" fill="#ff6f59"/>
+  <path d="M31 55h24v18H31z" fill="#2d7dd2"/>
+  <path d="M64 55h31v6H64zm0 13h24v6H64z" stroke="#101820" stroke-width="4" stroke-linecap="round"/>
+  <path d="M69 18l5 13 14 1-11 9 4 14-12-8-12 8 4-14-11-9 14-1z" fill="#ffd166"/>
+</svg>
