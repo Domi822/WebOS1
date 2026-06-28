@@ -1,32 +1,34 @@
 :root {
-  --bg: #e9e4d8;
-  --panel: #fffaf0;
-  --panel-2: #f4ecdc;
-  --ink: #25221e;
-  --muted: #6e665c;
-  --line: #25221e;
-  --red: #d88a75;
-  --green: #91b8a8;
-  --blue: #8baac8;
-  --yellow: #dbc47e;
-  --brown: #b9a796;
-  --shadow: 3px 3px 0 rgba(37, 34, 30, 0.18);
-  font-family: Arial, Helvetica, sans-serif;
+  --bg: #eee8d7;
+  --paper: #fff9e8;
+  --paper-alt: #f4ead4;
+  --ink: #27231f;
+  --muted: #70675d;
+  --line: #27231f;
+  --red: #d77b62;
+  --green: #7fae96;
+  --blue: #7d9fbd;
+  --yellow: #d9bd68;
+  --brown: #b59a83;
+  --purple: #a99bc3;
+  --shadow: 4px 5px 0 rgba(39, 35, 31, 0.2);
+  font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
 }
 
 body.dark {
-  --bg: #24272a;
-  --panel: #322f2a;
-  --panel-2: #272420;
-  --ink: #f6efe3;
-  --muted: #c7bbab;
-  --line: #f6efe3;
-  --red: #a86c5d;
-  --green: #668a7c;
-  --blue: #627d98;
-  --yellow: #a49059;
-  --brown: #806f61;
-  --shadow: 3px 3px 0 rgba(0, 0, 0, 0.35);
+  --bg: #202624;
+  --paper: #302b25;
+  --paper-alt: #28231f;
+  --ink: #f4ead6;
+  --muted: #c9bca8;
+  --line: #f4ead6;
+  --red: #a96855;
+  --green: #5f826f;
+  --blue: #5d7a92;
+  --yellow: #9c8751;
+  --brown: #7a6656;
+  --purple: #75688e;
+  --shadow: 4px 5px 0 rgba(0, 0, 0, 0.34);
 }
 
 * {
@@ -58,24 +60,37 @@ button {
   height: 100vh;
   min-height: 620px;
   color: var(--ink);
+  overflow: hidden;
   background-color: var(--bg);
   background-image:
-    linear-gradient(rgba(37, 34, 30, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(37, 34, 30, 0.06) 1px, transparent 1px);
-  background-size: 28px 28px;
-  overflow: hidden;
+    linear-gradient(90deg, rgba(39, 35, 31, 0.1) 1px, transparent 1px),
+    repeating-linear-gradient(0deg, transparent 0 31px, rgba(39, 35, 31, 0.13) 32px 33px);
+  background-size: 34px 34px, auto;
 }
 
 body[data-wallpaper="mint"] .desktop {
-  background-color: #dbe9de;
+  background-color: #dceade;
 }
 
 body[data-wallpaper="night"] .desktop,
 body.dark .desktop {
-  background-color: #262c2e;
+  background-color: #202624;
   background-image:
-    linear-gradient(rgba(246, 239, 227, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(246, 239, 227, 0.07) 1px, transparent 1px);
+    linear-gradient(90deg, rgba(244, 234, 214, 0.08) 1px, transparent 1px),
+    repeating-linear-gradient(0deg, transparent 0 31px, rgba(244, 234, 214, 0.1) 32px 33px);
+}
+
+.desktop::after {
+  content: "webos1";
+  position: absolute;
+  right: 28px;
+  bottom: 86px;
+  color: rgba(39, 35, 31, 0.16);
+  font-size: 84px;
+  font-weight: 900;
+  letter-spacing: 4px;
+  pointer-events: none;
+  text-transform: uppercase;
 }
 
 .top-bar {
@@ -84,14 +99,13 @@ body.dark .desktop {
   top: 12px;
   left: 16px;
   right: 16px;
-  height: 48px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 14px;
   border: 2px solid var(--line);
-  border-radius: 12px;
-  background: var(--panel);
+  background: var(--paper);
   box-shadow: var(--shadow);
 }
 
@@ -104,38 +118,39 @@ body.dark .desktop {
 }
 
 .brand {
-  font-size: 15px;
-  font-weight: 800;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
 }
 
 .brand-dot {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 14px;
   border: 2px solid var(--line);
-  border-radius: 5px;
   background: var(--red);
+  transform: rotate(-4deg);
 }
 
 .theme-button,
 .primary-button {
   min-height: 32px;
   border: 2px solid var(--line);
-  border-radius: 999px;
   background: var(--ink);
-  color: var(--panel);
+  color: var(--paper);
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .theme-button {
   padding: 0 13px;
+  transform: rotate(-1deg);
 }
 
 .clock {
   min-width: 76px;
-  text-align: right;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 900;
+  text-align: right;
 }
 
 .welcome,
@@ -145,7 +160,7 @@ body.dark .desktop {
   display: grid;
   place-items: center;
   padding: 24px;
-  background: rgba(37, 34, 30, 0.42);
+  background: rgba(39, 35, 31, 0.42);
 }
 
 .welcome {
@@ -170,18 +185,33 @@ body.dark .desktop {
 
 .welcome-card,
 .visitor-card {
+  position: relative;
   width: min(520px, 92vw);
   padding: 32px;
-  border: 3px solid #25221e;
-  border-radius: 14px;
-  background: #fffaf0;
-  color: #25221e;
-  box-shadow: 5px 5px 0 rgba(37, 34, 30, 0.24);
+  border: 2px solid #27231f;
+  background: #fff9e8;
+  color: #27231f;
+  box-shadow: 8px 9px 0 rgba(39, 35, 31, 0.25);
   text-align: center;
 }
 
 .visitor-card {
   width: min(460px, 92vw);
+}
+
+.welcome-card::before,
+.visitor-card::before,
+.app-window::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 28px;
+  width: 74px;
+  height: 22px;
+  border: 1px solid rgba(39, 35, 31, 0.35);
+  background: rgba(217, 189, 104, 0.45);
+  transform: rotate(-3deg);
+  pointer-events: none;
 }
 
 .welcome-mark {
@@ -195,8 +225,9 @@ body.dark .desktop {
 .welcome-card h1,
 .visitor-card h2 {
   margin: 0;
-  font-size: clamp(30px, 6vw, 54px);
+  font-size: clamp(30px, 6vw, 50px);
   line-height: 1;
+  letter-spacing: 0.3px;
 }
 
 .welcome-copy {
@@ -209,7 +240,8 @@ body.dark .desktop {
 .primary-button {
   min-width: 128px;
   height: 44px;
-  box-shadow: 3px 3px 0 rgba(37, 34, 30, 0.22);
+  box-shadow: 3px 3px 0 rgba(39, 35, 31, 0.22);
+  transform: rotate(-1deg);
 }
 
 .visitor-logo {
@@ -218,9 +250,8 @@ body.dark .desktop {
   display: grid;
   place-items: center;
   margin: -2px auto 14px;
-  border: 3px solid #25221e;
-  border-radius: 14px;
-  background: #91b8a8;
+  border: 2px solid #27231f;
+  background: #7fae96;
 }
 
 .visitor-logo img {
@@ -244,8 +275,7 @@ textarea,
 .task-form input {
   width: 100%;
   border: 2px solid var(--line);
-  border-radius: 9px;
-  background: var(--panel);
+  background: var(--paper);
   color: var(--ink);
   outline: none;
 }
@@ -253,8 +283,8 @@ textarea,
 .visitor-card input {
   height: 46px;
   padding: 0 12px;
-  color: #25221e;
-  background: #fffaf0;
+  color: #27231f;
+  background: #fff9e8;
 }
 
 .visitor-country {
@@ -281,7 +311,12 @@ textarea,
   background: transparent;
   color: var(--ink);
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 900;
+  transform: rotate(-1deg);
+}
+
+.desktop-icon:nth-child(even) {
+  transform: rotate(1.5deg);
 }
 
 .icon-shape,
@@ -289,7 +324,7 @@ textarea,
   display: grid;
   place-items: center;
   border: 2px solid var(--line);
-  background: var(--panel-2);
+  background: var(--paper-alt);
   box-shadow: var(--shadow);
 }
 
@@ -297,13 +332,11 @@ textarea,
   width: 58px;
   height: 58px;
   margin: 0 auto 7px;
-  border-radius: 13px;
 }
 
 .dock-icon {
   width: 38px;
   height: 38px;
-  border-radius: 10px;
 }
 
 .icon-shape img,
@@ -332,11 +365,15 @@ textarea,
   width: min(var(--w), calc(100vw - 24px));
   min-height: 220px;
   border: 2px solid var(--line);
-  border-radius: 12px;
-  background: var(--panel);
+  background: var(--paper);
   box-shadow: var(--shadow);
   overflow: hidden;
   pointer-events: auto;
+  transform: rotate(-0.25deg);
+}
+
+.app-window:nth-child(even) {
+  transform: rotate(0.35deg);
 }
 
 .app-window.is-open {
@@ -345,10 +382,11 @@ textarea,
 
 .app-window.dragging {
   user-select: none;
+  transform: rotate(0deg) scale(1.01);
 }
 
 .window-titlebar {
-  height: 42px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -381,19 +419,18 @@ textarea,
 }
 
 .window-dot {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
+  width: 13px;
+  height: 9px;
   background: var(--ink);
   opacity: 0.45;
+  transform: rotate(8deg);
 }
 
 .close-button {
   width: 28px;
   height: 28px;
   border: 2px solid var(--line);
-  border-radius: 50%;
-  background: var(--panel);
+  background: var(--paper);
   color: var(--ink);
   font-weight: 900;
   line-height: 1;
@@ -416,8 +453,7 @@ textarea {
   margin-bottom: 12px;
   overflow: hidden;
   border: 2px solid var(--line);
-  border-radius: 11px;
-  background: var(--panel-2);
+  background: var(--paper-alt);
 }
 
 .gallery-preview img,
@@ -450,8 +486,7 @@ textarea {
   padding: 0;
   overflow: hidden;
   border: 2px solid transparent;
-  border-radius: 10px;
-  background: var(--panel-2);
+  background: var(--paper-alt);
   color: white;
   font-size: 13px;
   font-weight: 900;
@@ -481,15 +516,13 @@ textarea {
 .task-form button,
 .task-row button {
   border: 2px solid var(--line);
-  border-radius: 9px;
-  background: var(--panel-2);
+  background: var(--paper-alt);
   color: var(--ink);
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .gallery-controls button {
   height: 34px;
-  border-radius: 999px;
   font-size: 12px;
 }
 
@@ -497,7 +530,7 @@ textarea {
 .empty-note {
   margin: 0;
   color: var(--muted);
-  font-weight: 800;
+  font-weight: 900;
   text-align: center;
 }
 
@@ -505,9 +538,8 @@ textarea {
   margin-bottom: 12px;
   padding: 12px 14px;
   border: 2px solid var(--line);
-  border-radius: 12px;
   background: var(--ink);
-  color: var(--panel);
+  color: var(--paper);
 }
 
 .calc-history {
@@ -515,7 +547,7 @@ textarea {
   margin: 0 0 4px;
   color: var(--muted);
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 900;
   text-align: right;
 }
 
@@ -540,8 +572,7 @@ textarea {
 .calc-grid button {
   height: 44px;
   border: 2px solid var(--line);
-  border-radius: 10px;
-  background: var(--panel);
+  background: var(--paper);
   color: var(--ink);
   font-weight: 900;
 }
@@ -555,9 +586,11 @@ textarea {
 }
 .calc-grid .zero { grid-column: span 2; }
 
-.system-list {
+.system-list,
+.visitor-table,
+.task-list {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .system-list p,
@@ -566,8 +599,7 @@ textarea {
   margin: 0;
   padding: 10px;
   border: 2px solid var(--line);
-  border-radius: 10px;
-  background: var(--panel-2);
+  background: var(--paper-alt);
 }
 
 .system-list p {
@@ -579,7 +611,7 @@ textarea {
 .system-list span,
 .visitor-row span {
   color: var(--muted);
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .visitor-app-head {
@@ -594,7 +626,6 @@ textarea {
   height: 48px;
   padding: 7px;
   border: 2px solid var(--line);
-  border-radius: 12px;
   background: var(--red);
 }
 
@@ -607,13 +638,11 @@ textarea {
   margin: 2px 0 0;
   color: var(--muted);
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 900;
 }
 
 .visitor-table,
 .task-list {
-  display: grid;
-  gap: 8px;
   max-height: 250px;
   overflow: auto;
 }
@@ -632,9 +661,8 @@ textarea {
 .visitor-country-badge {
   padding: 5px 8px;
   border: 2px solid var(--line);
-  border-radius: 999px;
   background: var(--yellow);
-  color: #25221e;
+  color: #27231f;
   font-size: 12px;
   font-weight: 900;
 }
@@ -677,10 +705,21 @@ textarea {
   gap: 9px;
   padding: 9px;
   border: 2px solid var(--line);
-  border-radius: 14px;
-  background: var(--panel);
+  background: var(--paper);
   box-shadow: var(--shadow);
   transform: translateX(-50%);
+}
+
+.dock::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: -8px;
+  height: 8px;
+  border: 2px solid var(--line);
+  border-top: 0;
+  background: var(--brown);
 }
 
 .dock button {
@@ -700,8 +739,7 @@ textarea {
   width: 22vw;
   min-width: 180px;
   border: 2px dashed var(--line);
-  border-radius: 14px;
-  background: rgba(255, 250, 240, 0.32);
+  background: rgba(255, 249, 232, 0.4);
   color: var(--ink);
   font-size: 18px;
   font-weight: 900;
