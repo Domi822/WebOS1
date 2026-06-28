@@ -287,6 +287,32 @@ textarea,
   background: #fff9e8;
 }
 
+.hidden {
+  display: none !important;
+}
+
+.name-check {
+  margin: 12px 0;
+  padding: 12px;
+  border: 2px dashed #27231f;
+  background: #f4ead4;
+  text-align: left;
+}
+
+.name-check p {
+  margin: 0 0 10px;
+  color: #27231f;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.name-check .primary-button {
+  width: 100%;
+  margin-top: 10px;
+  transform: rotate(0deg);
+}
+
 .visitor-country {
   min-height: 20px;
   margin: 10px 0 18px;

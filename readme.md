@@ -13,6 +13,7 @@ StarDance OS is my small WebOS-style desktop made with plain HTML, CSS, and Java
 - Includes Notes, Gallery, Calculator, System Info, Visitors, and Tasks apps.
 - Saves notes, tasks, theme, wallpaper, and first-visit state in the browser.
 - Stores visitor names in JSONBin so the visitor list can be shared.
+- Checks suspicious guestbook names and asks for a `confirm` step before saving them.
 
 ## Apps
 

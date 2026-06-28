@@ -5,6 +5,10 @@
   const visitorPop = document.getElementById("visitorPop");
   const visitorForm = document.getElementById("visitorForm");
   const visitorName = document.getElementById("visitorName");
+  const nameCheck = document.getElementById("nameCheck");
+  const nameCheckMessage = document.getElementById("nameCheckMessage");
+  const nameConfirm = document.getElementById("nameConfirm");
+  const confirmNameButton = document.getElementById("confirmNameButton");
   const visitorCountry = document.getElementById("visitorCountry");
   const visitorList = document.getElementById("visitorList");
   const clock = document.getElementById("clock");
@@ -41,6 +45,7 @@
   let calcExpression = "";
   let currentGalleryIndex = 0;
   let detectedCountry = "Unknown";
+  let pendingVisitorName = "";
   const wallpapers = ["paper", "mint", "night"];
 
   function updateCalcDisplay(displayText, historyText) {
@@ -59,6 +64,37 @@
   function updateWindowCount() {
     const openCount = windows.filter((win) => win.classList.contains("is-open")).length;
     windowCount.textContent = `${openCount} open`;
+  }
+
+  function getNameWarning(name) {
+    const cleanName = name.trim();
+    const lettersOnly = cleanName.toLowerCase().replace(/[^a-z]/g, "");
+    const vowels = (lettersOnly.match(/[aeiou]/g) || []).length;
+    const consonants = (lettersOnly.match(/[bcdfghjklmnpqrstvwxyz]/g) || []).length;
+    const hasTripleRepeat = /(.)\1\1/i.test(cleanName);
+    const hasKeyboardSmash = /(?:asdf|qwer|zxcv|hjkl|ghjk|dfgh|jkl|nfgk|fghj)/i.test(cleanName);
+
+    if (cleanName.length < 3) return "That name is very short.";
+    if (/^[a-z]{1,2}$/i.test(cleanName)) return "That looks like only one or two random letters.";
+    if (hasTripleRepeat) return "That name has repeated letters that look accidental.";
+    if (hasKeyboardSmash) return "That name looks like a keyboard smash.";
+    if (lettersOnly.length >= 5 && vowels === 0) return "That name has no vowels and looks random.";
+    if (lettersOnly.length >= 6 && consonants >= vowels * 5) return "That name has many consonants and looks random.";
+    return "";
+  }
+
+  function showNameCheck(name, reason) {
+    pendingVisitorName = name.trim();
+    nameCheckMessage.textContent = `${reason} If this really is your name or pseudonym, type confirm below.`;
+    nameConfirm.value = "";
+    nameCheck.classList.remove("hidden");
+    nameConfirm.focus();
+  }
+
+  function hideNameCheck() {
+    pendingVisitorName = "";
+    nameConfirm.value = "";
+    nameCheck.classList.add("hidden");
   }
 
   function getTasks() {
@@ -409,7 +445,25 @@
 
   visitorForm.addEventListener("submit", (event) => {
     event.preventDefault();
+    const warning = getNameWarning(visitorName.value);
+    if (warning) {
+      showNameCheck(visitorName.value, warning);
+      return;
+    }
+    hideNameCheck();
     addVisitor(visitorName.value);
+  });
+
+  visitorName.addEventListener("input", hideNameCheck);
+
+  confirmNameButton.addEventListener("click", () => {
+    if (nameConfirm.value.trim().toLowerCase() !== "confirm") {
+      nameCheckMessage.textContent = "Please type confirm exactly to use this unusual name.";
+      nameConfirm.focus();
+      return;
+    }
+
+    addVisitor(pendingVisitorName || visitorName.value);
   });
 
   themeButton.addEventListener("click", () => {

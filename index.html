@@ -32,6 +32,12 @@
         <p class="welcome-copy">Enter a name or pseudonym to be added to the StarDance OS visitor list.</p>
         <label for="visitorName">Name or pseudonym</label>
         <input id="visitorName" name="visitorName" type="text" maxlength="24" autocomplete="nickname" placeholder="PixelPilot" required>
+        <div class="name-check hidden" id="nameCheck">
+          <p id="nameCheckMessage">This name looks unusual. If it is really your name, type confirm.</p>
+          <label for="nameConfirm">Type confirm</label>
+          <input id="nameConfirm" name="nameConfirm" type="text" autocomplete="off" placeholder="confirm">
+          <button class="primary-button" id="confirmNameButton" type="button">This really is my name</button>
+        </div>
         <p class="visitor-country" id="visitorCountry">Detecting country...</p>
         <button class="primary-button" type="submit">Add me</button>
       </form>
