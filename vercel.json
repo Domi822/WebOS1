@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "/README.md",
+      "source": "/readme.md",
       "headers": [
         {
           "key": "Content-Type",
@@ -12,8 +12,8 @@
   ],
   "redirects": [
     {
-      "source": "/readme.md",
-      "destination": "/README.md",
+      "source": "/README.md",
+      "destination": "/readme.md",
       "permanent": true
     }
   ]
