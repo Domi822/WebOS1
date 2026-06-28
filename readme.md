@@ -49,7 +49,3 @@ Open `index.html` in a browser, or deploy the folder to Vercel.
 - `style.css` controls the minimal desktop look and responsive layout.
 - `script.js` controls the clock, dragging, apps, storage, calculator, gallery, tasks, wallpaper, and visitors.
 - `vercel.json` redirects `/README.md` to `/readme.md` and serves the README as raw text.
-
-## Devlog
-
-I wrote the development notes in [DEVLOG.md](./DEVLOG.md).
