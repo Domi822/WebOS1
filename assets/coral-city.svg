@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" role="img" aria-labelledby="title desc">
+  <title id="title">Coral City</title>
+  <desc id="desc">A colorful city skyline at sunset.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#6478ff"/>
+      <stop offset="0.48" stop-color="#ff7e9e"/>
+      <stop offset="1" stop-color="#ffc66c"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="520" fill="url(#sky)"/>
+  <circle cx="170" cy="124" r="54" fill="#fff1a3" opacity=".86"/>
+  <path d="M0 392 L0 244 L92 244 L92 312 L153 312 L153 196 L254 196 L254 278 L312 278 L312 142 L428 142 L428 300 L493 300 L493 226 L596 226 L596 316 L659 316 L659 175 L780 175 L780 270 L846 270 L846 226 L900 226 L900 520 L0 520 Z" fill="#26334f"/>
+  <path d="M34 280 H66 V316 H34Z M184 232 H215 V268 H184Z M350 178 H382 V214 H350Z M526 260 H558 V296 H526Z M700 212 H733 V248 H700Z M805 304 H836 V340 H805Z" fill="#ffd66c"/>
+  <path d="M0 401 C136 372 256 430 400 396 C538 364 671 430 900 388 L900 520 L0 520 Z" fill="#18223a" opacity=".78"/>
+  <path d="M0 440 C163 414 290 466 442 437 C612 405 724 460 900 424 L900 520 L0 520 Z" fill="#10192d"/>
+</svg>
