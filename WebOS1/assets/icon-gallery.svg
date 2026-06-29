@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-labelledby="title">
+  <title id="title">Gallery app icon</title>
+  <rect width="96" height="96" rx="24" fill="#21b9a8"/>
+  <rect x="20" y="24" width="56" height="48" rx="10" fill="#eefcff"/>
+  <circle cx="35" cy="38" r="7" fill="#ffd36b"/>
+  <path d="M24 68l18-20 13 13 8-9 13 16z" fill="#56c878"/>
+  <rect x="28" y="18" width="40" height="10" rx="5" fill="#ffffff" opacity=".65"/>
+</svg>
