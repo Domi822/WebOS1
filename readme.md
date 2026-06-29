@@ -30,7 +30,7 @@ StarDance OS is my small WebOS-style desktop made with plain HTML, CSS, and Java
 
 I started with the required OS desktop parts first: welcome screen, desktop icons, top bar, clock, and draggable windows. After that I added one app at a time. The calculator was the hardest because I had to keep track of the expression, display, delete button, and keyboard input.
 
-Later I changed the design because the first version felt too much like a generic shiny template. The newer style is more minimal: flatter colors, smaller shadows, simple borders, and a calmer desktop background. I also added wallpaper switching and the Tasks app so there is more to interact with than just opening windows.
+Later, I changed the design because the first version felt too much like a generic shiny template. The newer style is more minimal: flatter colors, smaller shadows, simple borders, and a calmer desktop background. I also added wallpaper switching and the Tasks app so there is more to interact with than just opening windows.
 
 The visitor list uses JSONBin. When somebody joins the guestbook, the page saves their name, country, and visit time to the shared JSON record.
 
