@@ -1,52 +1,35 @@
-# StarDance OS
+# Dummy UI
 
-StarDance OS is my small WebOS-style desktop made with plain HTML, CSS, and JavaScript. It does not have a password screen, so anyone can open it and test the apps right away.
+Dummy UI is a remote-first Samsung TV launcher concept with a glossy glass interface, animated home screen, streaming service shortcuts, first-run welcome, and version update notice. It is a **Tizen web application**, not a replacement for Samsung's firmware or Smart Hub.
 
-![Desktop overview](./docs/screenshots/desktop-overview.png)
+## Preview
 
-## What It Does
+Open `index.html` in a modern browser. Use arrow keys to move focus, Enter to select, and Escape or Backspace to close a panel. The layout is designed for a 16:9 TV screen and adapts to smaller screens.
 
-- Shows a welcome screen before the desktop opens.
-- Has a top bar with a live clock, theme button, and wallpaper button.
-- Opens multiple draggable windows at the same time.
-- Lets windows close, reopen, focus, and snap near the screen edges.
-- Includes Notes, Gallery, Calculator, System Info, Visitors, and Tasks apps.
-- Saves notes, tasks, theme, wallpaper, and first-visit state in the browser.
-- Stores visitor names in JSONBin so the visitor list can be shared.
-- Checks suspicious guestbook names and asks for a `confirm` step before saving them.
+## Samsung TV development
 
-## Apps
+1. Install Samsung TV / Tizen Studio and its TV extensions.
+2. Create a Samsung certificate profile for the target TV and register the TV in Device Manager.
+3. Confirm the exact model and Tizen version, then set the package's required version and test the app on the TV or emulator.
+4. Build and sign the WGT package with the matching certificate.
 
-- **Notes:** a simple textarea that saves after refresh.
-- **Gallery:** three real image links with thumbnails and previous/next buttons.
-- **Calculator:** basic math with button and keyboard input.
-- **System Info:** shows simple desktop status.
-- **Visitors:** asks first-time visitors for a name or pseudonym and shows the shared guestbook.
-- **Tasks:** my extra app for adding, checking off, and deleting small tasks.
+The model number was not present in the project folder when this version was prepared. The package metadata uses a broad Tizen baseline; test compatibility on the target TV before installation. Samsung requires a valid signing certificate to install and run a TV web app. Consumer TVs do not support installing a WGT directly from USB; use the developer workflow or Samsung's approved distribution process.
 
-![Visitors app](./docs/screenshots/visitors-app.png)
+## Streaming services
 
-## How I Made It
+The launcher provides YouTube, Prime Video, Disney+, Netflix, and Samsung TV Plus shortcuts. It attempts to open a service website in the TV browser. Browser support, sign-in, service availability, DRM playback, and remote controls are determined by the TV and each provider. For reliable playback, use the provider's official Samsung TV app. This project does not implement provider authentication or video playback, remove ads, or promise ad-free YouTube.
 
-I started with the required OS desktop parts first: welcome screen, desktop icons, top bar, clock, and draggable windows. After that I added one app at a time. The calculator was the hardest because I had to keep track of the expression, display, delete button, and keyboard input.
+## Version behavior
 
-Later, I changed the design because the first version felt too much like a generic shiny template. The current style is meant to look more like my own messy desk: paper windows, pencil lines, tape pieces, sticker-like app icons, square buttons, and small uneven rotations. I also added wallpaper switching and the Tasks app so there is more to interact with than just opening windows.
-
-The visitor list uses JSONBin. When somebody joins the guestbook, the page saves their name, country, and visit time to the shared JSON record.
-
-## Screenshots
-
-![Tasks and gallery](./docs/screenshots/tasks-gallery.png)
-
-The screenshot files in `docs/screenshots/` are browser captures of the project: the desktop, the visitor list, the gallery, and the new tasks app.
-
-## Run It
-
-Open `index.html` in a browser, or deploy the folder to Vercel.
+The welcome card appears on first launch and shows the current version. The app stores the last-seen version locally and displays **New UI Update** with a change summary when the version changes. Update `VERSION` in `script.js` and the displayed version in `config.xml` when preparing a release.
 
 ## Files
 
-- `index.html` has the desktop structure and app windows.
-- `style.css` controls the handmade desk/notebook look and responsive layout.
-- `script.js` controls the clock, dragging, apps, storage, calculator, gallery, tasks, wallpaper, and visitors.
-- `vercel.json` redirects `/README.md` to `/readme.md` and serves the README as raw text.
+- `index.html` — launcher structure and app tiles
+- `style.css` — glass UI, motion, responsive layout, and reduced-motion support
+- `script.js` — remote/keyboard navigation, welcome/update behavior, app links, and clock
+- `config.xml` — Tizen TV package configuration
+
+## Checks
+
+Run `node --check script.js` to validate the JavaScript syntax. A browser preview is useful for checking visual behavior; TV-device testing still requires the model, Tizen Studio, a matching certificate, and the physical TV or emulator.
